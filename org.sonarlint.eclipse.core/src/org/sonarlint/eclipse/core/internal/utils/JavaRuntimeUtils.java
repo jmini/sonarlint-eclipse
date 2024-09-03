@@ -75,11 +75,11 @@ public class JavaRuntimeUtils {
       var javaHome = System.getProperty(SYSTEM_PROPERTY_JAVA_HOME);
       var javaClassVersion = System.getProperty(SYSTEM_PROPERTY_JAVA_CLASS_VERSION);
       if (eclipseVm != null && javaHome != null && javaClassVersion != null) {
-        var eclipseVmAbsolutePath = Paths.get(eclipseVm).toAbsolutePath();
-        var javaHomeAbsolutePath = Paths.get(javaHome).toAbsolutePath();
+        var eclipseVmRealPath = Paths.get(eclipseVm).toRealPath();
+        var javaHomeRealPath = Paths.get(javaHome).toRealPath();
         var javaClassVersionFloat = Float.parseFloat(javaClassVersion);
-        if (eclipseVmAbsolutePath.startsWith(javaHomeAbsolutePath) && javaClassVersionFloat >= JAVA_17_CLASS_VERSION) {
-          return new JavaRuntimeInformation(JavaRuntimeProvider.ECLIPSE_MANAGED, javaHomeAbsolutePath);
+        if (eclipseVmRealPath.startsWith(javaHomeRealPath) && javaClassVersionFloat >= JAVA_17_CLASS_VERSION) {
+          return new JavaRuntimeInformation(JavaRuntimeProvider.ECLIPSE_MANAGED, javaHomeRealPath);
         }
       }
     } catch (Exception err) {
